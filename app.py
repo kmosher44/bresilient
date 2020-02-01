@@ -18,7 +18,17 @@ def send_files(path):
 def send_js(path):
     return send_from_directory('public/js', path)
 
-
+'''
+fetch_polygons: This should take a bounded map area and return all of the load density 
+polygons that are in or intersect with the map area.
+The final goal, which may be out of scope for the hackthon, is to create polygons covering
+the entire service area from the UtilityApi info and then load the polygons into a postgres
+database, where the polygon intersect method is used to find the polygons to load from the database.
+The load area has a power consumption density (calculated from the peak of a a marked metered load 
+location in the polygon) as well as a boolean indicator of income (lower income locations being more 
+vulnerable), as well as a visual shading indicator.  MVP has the polygons manually calculated from 
+UtiltyAPI data for Gilroy and returns those.  
+'''
 @app.route('/fetchPolygons', methods=['POST'])
 def fetch_polygons():
     request_vars = request.get_json()
@@ -30,6 +40,7 @@ def fetch_polygons():
             "markerLoc": [-121.623069, 37.019780],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
             "loadIndex": 100,  # Integer, 0 - 100
+            "households": 2807,  # Integer,
             "loadDensity": "27 MW",  # String,
             "coordinates": [
                 [
@@ -61,6 +72,7 @@ def fetch_polygons():
             "markerLoc": [-121.560769, 37.007519],  # Array [lng, lat]
             "isLowIncome": True,  # Boolean
             "loadIndex": 24,  # Integer, 0 - 100
+            "households": 2807,  # Integer,
             "loadDensity": "6.5 MW",  # String,
             "coordinates": [
 
@@ -93,6 +105,7 @@ def fetch_polygons():
             "markerLoc": [-121.580479, 37.009911],  # Array [lng, lat]
             "isLowIncome": True,  # Boolean
             "loadIndex": 26,  # Integer, 0 - 100
+            "households": 2441,  # Integer,
             "loadDensity": "7.1 MW",  # String,
             "coordinates": [
                 [
@@ -124,6 +137,7 @@ def fetch_polygons():
             "markerLoc": [-121.575173, 36.998412],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
             "loadIndex": 15,  # Integer, 0 - 100
+            "households": 1709,  # Integer,
             "loadDensity": "4.1 MW",  # String,
             "coordinates": [
                 [
@@ -157,6 +171,31 @@ def fetch_polygons():
            'polygons': polygons}
     return jsonify(res)
 
+'''
+calculate_recommendations: This function should take a user specified polygon, find all overlapping 
+load polygons in the database, then for each load polygon, calculate the overlap area, 
+calculate the area of the ov
+'''
+@app.route('/calculateRecommendation', methods=['POST'])
+def calculate_recommendations():
+    request_vars = request.get_json()
+    bounds = request_vars['bounds']
+    user_polygon = request_vars['userPolygon']
+
+    recommendation = {
+
+    }
+    pins =\
+        [
+            [-121.623069, 37.019780],
+            [-121.560769, 37.007519],
+            [-121.580479, 37.009911],
+            [-121.575173, 36.998412]
+        ]
+
+    res = {'status': 'ok',
+           'pins': pins}
+    return jsonify(res)
 
 
 @app.route('/fetchPins', methods=['POST'])
