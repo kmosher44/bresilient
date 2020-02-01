@@ -34,7 +34,6 @@ var locations = [
   });
 
   var api = new API();
-
   var map = M.getMap();
 
   // zip code submit handler
@@ -61,6 +60,9 @@ var locations = [
     var hubImg = 'images/icons/hub.png';
     M.addIcon(hubImg, startLocation, 'two', 1.25);
 
+    //add polygons 
+    const polygons = await api.fetchPolygons();
+    console.log(polygons);
 
     //   var draw = new MapboxDraw({
     //     displayControlsDefault: false,
