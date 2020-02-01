@@ -6,35 +6,52 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
         body, html {
             height: 100%;
-            display: flex;
-            width: 100%
         }
 
-        #map {
-            width: 100vw;
+        .app, .sidebar, .main {
+            height: 100%;
         }
 
         .sidebar {
-            height: 100%;
-            width: 20vw;
+            border-right: 1px solid rgba(0, 0, 0, 0.14);
+            padding: 0 30px !important;
+            min-width: 300px;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 21px;
+            right: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-<div class="sidebar">
-    <button class="btn">Hello</button>
+<div class="app row">
+    <div class="sidebar col s3">
+        <h5>Resilient</h5>
+        <div class="input-field">
+            <br>
+            <br>
+            <form class="search-form">
+                <input placeholder="Zip Code" id="search" type="text">
+            </form>
+<!--            <i class="search-icon material-icons">search</i>-->
+        </div>
+    </div>
+    <div class="main col s9">
+        <div id="map"></div>
+    </div>
 </div>
-<div id="map"></div>
 
-<!-- Scripts -->
+
+<!-- Third Party Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.js"></script>
 <link
@@ -42,77 +59,9 @@
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css"
         type="text/css"
 />
-<script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoiaGF5ZGVuMzIxIiwiYSI6ImNrNjM3Zjg4ZzA3MDAza284a2p6dmpjcWUifQ.MQ-kLHA7IuWQ3BMeYE-XAA';
 
-  const ny = [-73.935242, 40.730610];
-  const oakland = [-122.2711, 37.8];
-  const nevada = [-121.0160594, 39.2615606];
-  const state = {
-    clicked: 0,
-  }
-
-  const renderMap = (location) => {
-  };
-
-  const createMap = (location = nevada) => {
-    return new mapboxgl.Map({
-      container: 'map', // container id
-      // style: 'mapbox://styles/mapbox/satellite-v9', // stylesheet location
-      style: 'mapbox://styles/mapbox/satellite-streets-v9', // stylesheet location
-      center: location, // starting position [lng, lat]
-      zoom: 9 // starting zoom
-    });
-  }
-
-  var draw = new MapboxDraw({
-    displayControlsDefault: false,
-    controls: {
-      polygon: true,
-      trash: true
-    }
-  });
-
-  function updateArea(e) {
-    var data = draw.getAll();
-    var answer = document.getElementById('calculated-area');
-    if (data.features.length > 0) {
-      var area = turf.area(data);
-// restrict to area to 2 decimal points
-      var rounded_area = Math.round(area * 100) / 100;
-      answer.innerHTML =
-        '<p><strong>' +
-        rounded_area +
-        '</strong></p><p>square meters</p>';
-    } else {
-      answer.innerHTML = '';
-      if (e.type !== 'draw.delete')
-        alert('Use the draw tools to draw a polygon!');
-    }
-  }
-
-
-  (function main() {
-    const btn = document.querySelector('.btn');
-    btn.addEventListener('click', () => {
-      map.flyTo({
-        center: oakland,
-        essential: true // this animation is considered essential with respect to prefers-reduced-motion
-      });
-    });
-
-    const map = createMap();
-
-    
-    map.addControl(draw);
-
-    map.on('draw.create', updateArea);
-    map.on('draw.delete', updateArea);
-    map.on('draw.update', updateArea);
-    console.log(map)
-  })();
-
-</script>
+<!-- Custom Scripts -->
+<script src="js/app.js"></script>
 
 </body>
 </html>
