@@ -35,3 +35,11 @@ var loadPolygons = [
   }
 ];
 
+
+// const data = JSON.parse(localStorage.polygons)
+// const json = JSON.stringify(
+//   data.map(d => {
+//     return d.geometry.coordinates;
+//   }),
+//   null, 2)
+

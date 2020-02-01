@@ -40,13 +40,13 @@ class Map {
 
   }
 
-  addIcon(imgSrc, loc) {
-    var imgSrc = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png';
+  addIcon(imgSrc, loc, name, size=0.25) {
+    var map = this.map;
     map.loadImage(
       imgSrc,
       function (error, image) {
         if (error) throw error;
-        map.addImage(imgSrc, image);
+        map.addImage(name, image);
         map.addSource('point', {
           'type': 'geojson',
           'data': {
@@ -56,7 +56,7 @@ class Map {
                 'type': 'Feature',
                 'geometry': {
                   'type': 'Point',
-                  'coordinates': startLocation
+                  'coordinates': loc
                 }
               }
             ]
@@ -67,16 +67,16 @@ class Map {
           'type': 'symbol',
           'source': 'point',
           'layout': {
-            'icon-image': imgSrc,
-            'icon-size': 0.1
+            'icon-image': name,
+            'icon-size': size,
           }
         });
       }
-    )
+    );
   }
 
-
   addMarker(loc) {
+    console.log('helllllo from addMarker')
     new mapboxgl
       .Marker()
       .setLngLat(loc)
