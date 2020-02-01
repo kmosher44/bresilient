@@ -12,11 +12,12 @@ class API {
   }
   
   async fetchPolygons(bounds) {
-    var route = 'fetchPolygon';
+    var route = 'fetchPolygons';
     var url = `${this.baseUrl}${route}`;
     var { data } = await axios.post(url, {
       bounds: {}
     });
+    return data;
   }
 
   async fetchPins() {

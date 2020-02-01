@@ -37,7 +37,6 @@ class Map {
         'fill-opacity': data.loadIndex / 100,
       }
     });
-
   }
 
   addIcon(imgSrc, loc, name, size=0.25) {

@@ -60,9 +60,12 @@ var locations = [
     var hubImg = 'images/icons/hub.png';
     M.addIcon(hubImg, startLocation, 'two', 1.25);
 
-    //add polygons 
-    const polygons = await api.fetchPolygons();
-    console.log(polygons);
+    // add polygons 
+    const { polygons } = await api.fetchPolygons();
+    
+    for (var poly of polygons) {
+      M.addPoly(poly)
+    }
 
     //   var draw = new MapboxDraw({
     //     displayControlsDefault: false,
