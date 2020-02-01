@@ -18,7 +18,17 @@ def send_files(path):
 def send_js(path):
     return send_from_directory('public/js', path)
 
-
+'''
+fetch_polygons: This should take a bounded map area and return all of the load density 
+polygons that are in or intersect with the map area.
+The final goal, which may be out of scope for the hackthon, is to create polygons covering
+the entire service area from the UtilityApi info and then load the polygons into a postgres
+database, where the polygon intersect method is used to find the polygons to load from the database.
+The load area has a power consumption density (calculated from the peak of a a marked metered load 
+location in the polygon) as well as a boolean indicator of income (lower income locations being more 
+vulnerable), as well as a visual shading indicator.  MVP has the polygons manually calculated from 
+UtiltyAPI data for Gilroy and returns those.  
+'''
 @app.route('/fetchPolygons', methods=['POST'])
 def fetch_polygons():
     request_vars = request.get_json()
@@ -27,15 +37,130 @@ def fetch_polygons():
     polygons = [
         {
             "type": "load",  # load, fire, generate
-            "markerLoc": [-67.13734351262877, 45.137451890638886],  # Array [lng, lat]
-            "isLowIncome": True,  # Boolean
-            "loadIndex": 45,  # Integer, 0 - 100
-            "loadDensity": "",  # String,
+            "markerLoc": [-121.623069, 37.019780],  # Array [lng, lat]
+            "isLowIncome": False,  # Boolean
+            "loadIndex": 100,  # Integer, 0 - 100
+            "households": 2807,  # Integer,
+            "loadDensity": "27 MW",  # String,
             "coordinates": [
                 [
-                    [-67.13734351262877, 45.137451890638886],
-                    [-66.96466, 44.8097],
-                    [-68.03252, 44.3252],
+                    [
+                        -121.55934804760764,
+                        36.98474118666458
+                    ],
+                    [
+                        -121.55024999462927,
+                        36.98432981841435
+                    ],
+                    [
+                        -121.53462880932638,
+                        37.00283918738357
+                    ],
+                    [
+                        -121.57428258740268,
+                        37.032718878774986
+                    ],
+                    [
+                        -121.55934804760764,
+                        36.98474118666458
+                    ]
+                ]
+            ]
+        },
+        {
+            "type": "load",  # load, fire, generate
+            "markerLoc": [-121.560769, 37.007519],  # Array [lng, lat]
+            "isLowIncome": True,  # Boolean
+            "loadIndex": 24,  # Integer, 0 - 100
+            "households": 2807,  # Integer,
+            "loadDensity": "6.5 MW",  # String,
+            "coordinates": [
+
+                [
+                    [
+                        -121.56140798413122,
+                        36.989677432157166
+                    ],
+                    [
+                        -121.58664220654313,
+                        36.97843329573736
+                    ],
+                    [
+                        -121.6012334235844,
+                        36.99571018607898
+                    ],
+                    [
+                        -121.56758779370162,
+                        37.01078997719476
+                    ],
+                    [
+                        -121.56140798413122,
+                        36.989677432157166
+                    ]
+                ]
+            ]
+        },
+        {
+            "type": "load",  # load, fire, generate
+            "markerLoc": [-121.580479, 37.009911],  # Array [lng, lat]
+            "isLowIncome": True,  # Boolean
+            "loadIndex": 26,  # Integer, 0 - 100
+            "households": 2441,  # Integer,
+            "loadDensity": "7.1 MW",  # String,
+            "coordinates": [
+                [
+                    [
+                        -121.60157674633817,
+                        36.996258594525
+                    ],
+                    [
+                        -121.6008901008303,
+                        37.03532251537747
+                    ],
+                    [
+                        -121.57496923291052,
+                        37.032307770098924
+                    ],
+                    [
+                        -121.5677594550785,
+                        37.011201202323505
+                    ],
+                    [
+                        -121.60157674633817,
+                        36.996258594525
+                    ]
+                ]
+            ]
+        },
+        {
+            "type": "load",  # load, fire, generate
+            "markerLoc": [-121.575173, 36.998412],  # Array [lng, lat]
+            "isLowIncome": False,  # Boolean
+            "loadIndex": 15,  # Integer, 0 - 100
+            "households": 1709,  # Integer,
+            "loadDensity": "4.1 MW",  # String,
+            "coordinates": [
+                [
+                    [
+                        -121.60226339184604,
+                        36.99653279726468
+                    ],
+                    [
+                        -121.63848394238302,
+                        37.0088708971745
+                    ],
+                    [
+                        -121.62749761425829,
+                        37.03354108945132
+                    ],
+                    [
+                        -121.6008901008303,
+                        37.035459546410024
+                    ],
+                    [
+                        -121.60226339184604,
+                        36.99653279726468
+                    ]
                 ]
             ]
         }
@@ -46,6 +171,31 @@ def fetch_polygons():
            'polygons': polygons}
     return jsonify(res)
 
+'''
+calculate_recommendations: This function should take a user specified polygon, find all overlapping 
+load polygons in the database, then for each load polygon, calculate the overlap area, 
+calculate the area of the ov
+'''
+@app.route('/calculateRecommendation', methods=['POST'])
+def calculate_recommendations():
+    request_vars = request.get_json()
+    bounds = request_vars['bounds']
+    user_polygon = request_vars['userPolygon']
+
+    recommendation = {
+
+    }
+    pins =\
+        [
+            [-121.623069, 37.019780],
+            [-121.560769, 37.007519],
+            [-121.580479, 37.009911],
+            [-121.575173, 36.998412]
+        ]
+
+    res = {'status': 'ok',
+           'pins': pins}
+    return jsonify(res)
 
 
 @app.route('/fetchPins', methods=['POST'])
