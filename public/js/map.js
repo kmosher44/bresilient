@@ -76,7 +76,6 @@ class Map {
   }
 
   addMarker(loc) {
-    console.log('helllllo from addMarker')
     new mapboxgl
       .Marker()
       .setLngLat(loc)

@@ -50,17 +50,16 @@ var locations = [
   //jj
 
 
-  map.on('load', function () {
+  map.on('load', async function () {
 
     // add markers
     var {pins} = await api.fetchPins();
     var meteredPoints = pins;
+    M.addMarkers(meteredPoints);
    
     // add hub icon
     var hubImg = 'images/icons/hub.png';
-
-
-    M.addIcon(hubImg, startLocation, 'two', 2);
+    M.addIcon(hubImg, startLocation, 'two', 1.25);
 
 
     //   var draw = new MapboxDraw({
