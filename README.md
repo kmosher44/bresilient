@@ -1,2 +1,2 @@
-# -bresilient
+# bresilient
 Gridshift Hackathon Project
