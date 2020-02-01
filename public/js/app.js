@@ -1,7 +1,13 @@
-var oakland = [-122.2711, 37.8];
 var gilroy = [-121.568275, 37.005783];
+var gilroy2 = switchLatLng([37.013035, -121.531174]);
 var chestnutStHub = switchLatLng([37.003319, -121.560893]);
 var startLocation = chestnutStHub ;
+
+var locations = [
+  gilroy,
+  gilroy2,
+  chestnutStHub
+];
 
 class Map {
   constructor({map}) {
@@ -11,18 +17,24 @@ class Map {
 
   move(location) {
     this.map.flyTo({
-      center: oakland,
+      center: location,
       essential: true // this animation is considered essential with respect to prefers-reduced-motion
     });
   }
 
-  addMarker() {
-    var marker = new mapboxgl.Marker({
-      draggable: true
-    })
-      .setLngLat(this.defaultLoc)
+  addMarker(loc) {
+    new mapboxgl
+      .Marker()
+      .setLngLat(loc)
       .addTo(this.map);
   }
+  
+  addMarkers(locations) {
+    for (var loc of locations) {
+     this.addMarker(loc);   
+    }
+  }
+  
 }
 
 
@@ -49,7 +61,7 @@ class Map {
     map: mapboxObj,
   });
   //jj
-  map.addMarker();
+  map.addMarkers(locations);
 })();
 
 
