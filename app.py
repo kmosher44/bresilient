@@ -39,30 +39,31 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.623069, 37.019780],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
-            "loadIndex": 100,  # Integer, 0 - 100
+            "loadIndex": 60,  # Integer, 0 - 100
             "households": 2807,  # Integer,
             "loadDensity": "27 MW",  # String,
             "coordinates": [
+
                 [
                     [
-                        -121.55934804760764,
-                        36.98474118666458
+                        -121.60226339184604,
+                        36.99653279726468
                     ],
                     [
-                        -121.55024999462927,
-                        36.98432981841435
+                        -121.63848394238302,
+                        37.0088708971745
                     ],
                     [
-                        -121.53462880932638,
-                        37.00283918738357
+                        -121.62749761425829,
+                        37.03354108945132
                     ],
                     [
-                        -121.57428258740268,
-                        37.032718878774986
+                        -121.6008901008303,
+                        37.035459546410024
                     ],
                     [
-                        -121.55934804760764,
-                        36.98474118666458
+                        -121.60226339184604,
+                        36.99653279726468
                     ]
                 ]
             ]
@@ -136,32 +137,10 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.575173, 36.998412],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
-            "loadIndex": 15,  # Integer, 0 - 100
+            "loadIndex": 20,  # Integer, 0 - 100
             "households": 1709,  # Integer,
             "loadDensity": "4.1 MW",  # String,
             "coordinates": [
-                [
-                    [
-                        -121.60226339184604,
-                        36.99653279726468
-                    ],
-                    [
-                        -121.63848394238302,
-                        37.0088708971745
-                    ],
-                    [
-                        -121.62749761425829,
-                        37.03354108945132
-                    ],
-                    [
-                        -121.6008901008303,
-                        37.035459546410024
-                    ],
-                    [
-                        -121.60226339184604,
-                        36.99653279726468
-                    ]
-                ]
             ]
         }
     ]
@@ -174,7 +153,9 @@ def fetch_polygons():
 '''
 calculate_recommendations: This function should take a user specified polygon, find all overlapping 
 load polygons in the database, then for each load polygon, calculate the overlap area, 
-calculate the area of the ov
+calculate the % of the area of the overlap, then add that fraction of the load density to the total (i.e. 
+the entire load polygon represents 4.1 MW, and we have 25% in our area of interest, so we add 4.1*0.25=1.025MW to
+the load density total for the recommendation
 '''
 @app.route('/calculateRecommendation', methods=['POST'])
 def calculate_recommendations():
@@ -183,18 +164,36 @@ def calculate_recommendations():
     user_polygon = request_vars['userPolygon']
 
     recommendation = {
+        "tabular_values": [
+            {
+                "duration": "Infinity",
+                "power requirement": 223.15,
+                "energy requirement": 6017
+            },
+            {
+                "duration": "7 Days",
+                "power requirement": 223.15,
+                "energy requirement": 3052
+            },
+            {
+                "duration": "1 Day",
+                "power requirement": 223.15,
+                "energy requirement": 771
+            },
+        ],
+
+        "generator_locations":
+            [
+                [-121.623069, 37.019780],
+                [-121.560769, 37.007519],
+                [-121.580479, 37.009911],
+                [-121.575173, 36.998412]
+            ]
 
     }
-    pins =\
-        [
-            [-121.623069, 37.019780],
-            [-121.560769, 37.007519],
-            [-121.580479, 37.009911],
-            [-121.575173, 36.998412]
-        ]
 
     res = {'status': 'ok',
-           'pins': pins}
+           'recommendation': recommendation}
     return jsonify(res)
 
 
