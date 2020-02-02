@@ -203,7 +203,7 @@ def calculate_recommendations():
     should be straightforward in postgres with the geometry operators:
     Do polygons intersect: &&
     Area of poygon: area()
-    
+    Ended up out of scope for the challenge
     '''
 
     recommendation = {
