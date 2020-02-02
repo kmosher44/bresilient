@@ -14,6 +14,14 @@ var startLocation = present ? launchpad : chestnutStHub;
 (async function main() {
   var $searchForm = document.querySelector('.search-form');
   var $searchInput = document.querySelector('#search');
+  var $table = document.querySelector('.table');
+  var $genButton = document.querySelector('.btn-gen');
+
+
+  $genButton.addEventListener('click', () => {
+    $table.style.display = 'block';
+  });
+
 
   mapboxgl.accessToken = 'pk.eyJ1IjoiaGF5ZGVuMzIxIiwiYSI6ImNrNjM3Zjg4ZzA3MDAza284a2p6dmpjcWUifQ.MQ-kLHA7IuWQ3BMeYE-XAA';
   var mapboxObj = new mapboxgl.Map({
