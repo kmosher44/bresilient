@@ -198,6 +198,14 @@ def calculate_recommendations():
     bounds = request_vars['bounds']
     user_polygon = request_vars['userPolygon']
 
+    '''
+    TODO: calculate overlapping polygon amounts to get load density (currently done by hand),
+    should be straightforward in postgres with the geometry operators:
+    Do polygons intersect: &&
+    Area of poygon: area()
+    
+    '''
+
     recommendation = {
         "tabular_values": [
             {
@@ -231,7 +239,9 @@ def calculate_recommendations():
            'recommendation': recommendation}
     return jsonify(res)
 
-
+'''
+fetch_pins: helper function to show UtilityApi data points available in region
+'''
 @app.route('/fetchPins', methods=['POST'])
 def fetch_pins():
     request_vars = request.get_json()
