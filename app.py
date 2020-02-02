@@ -24,10 +24,13 @@ polygons that are in or intersect with the map area.
 The final goal, which may be out of scope for the hackthon, is to create polygons covering
 the entire service area from the UtilityApi info and then load the polygons into a postgres
 database, where the polygon intersect method is used to find the polygons to load from the database.
+
 The load area has a power consumption density (calculated from the peak of a a marked metered load 
 location in the polygon) as well as a boolean indicator of income (lower income locations being more 
 vulnerable), as well as a visual shading indicator.  MVP has the polygons manually calculated from 
 UtiltyAPI data for Gilroy and returns those.  
+
+Power consumption density for a polygon was 
 '''
 @app.route('/fetchPolygons', methods=['POST'])
 def fetch_polygons():
@@ -39,7 +42,7 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.623069, 37.019780],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
-            "loadIndex": 60,  # Integer, 0 - 100
+            "loadIndex": 80,  # Integer, 0 - 100
             "households": 2807,  # Integer,
             "loadDensity": "27 MW",  # String,
             "coordinates": [
@@ -71,7 +74,7 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.560769, 37.007519],  # Array [lng, lat]
             "isLowIncome": True,  # Boolean
-            "loadIndex": 30,  # Integer, 0 - 100
+            "loadIndex": 40,  # Integer, 0 - 100
             "households": 2807,  # Integer,
             "loadDensity": "6.5 MW",  # String,
             "coordinates": [
@@ -103,7 +106,7 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.580479, 37.009911],  # Array [lng, lat]
             "isLowIncome": True,  # Boolean
-            "loadIndex": 45,  # Integer, 0 - 100
+            "loadIndex": 60,  # Integer, 0 - 100
             "households": 2441,  # Integer,
             "loadDensity": "7.1 MW",  # String,
             "coordinates": [
@@ -136,7 +139,7 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.575173, 36.998412],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
-            "loadIndex": 15,  # Integer, 0 - 100
+            "loadIndex": 20,  # Integer, 0 - 100
             "households": 1709,  # Integer,
             "loadDensity": "4.1 MW",  # String,
             "coordinates": [
