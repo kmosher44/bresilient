@@ -39,7 +39,7 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.623069, 37.019780],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
-            "loadIndex": 80,  # Integer, 0 - 100
+            "loadIndex": 60,  # Integer, 0 - 100
             "households": 2807,  # Integer,
             "loadDensity": "27 MW",  # String,
             "coordinates": [
@@ -71,7 +71,7 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.560769, 37.007519],  # Array [lng, lat]
             "isLowIncome": True,  # Boolean
-            "loadIndex": 40,  # Integer, 0 - 100
+            "loadIndex": 30,  # Integer, 0 - 100
             "households": 2807,  # Integer,
             "loadDensity": "6.5 MW",  # String,
             "coordinates": [
@@ -103,7 +103,7 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.580479, 37.009911],  # Array [lng, lat]
             "isLowIncome": True,  # Boolean
-            "loadIndex": 60,  # Integer, 0 - 100
+            "loadIndex": 45,  # Integer, 0 - 100
             "households": 2441,  # Integer,
             "loadDensity": "7.1 MW",  # String,
             "coordinates": [
@@ -136,7 +136,7 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.575173, 36.998412],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
-            "loadIndex": 20,  # Integer, 0 - 100
+            "loadIndex": 15,  # Integer, 0 - 100
             "households": 1709,  # Integer,
             "loadDensity": "4.1 MW",  # String,
             "coordinates": [
@@ -177,6 +177,12 @@ load polygons in the database, then for each load polygon, calculate the overlap
 calculate the % of the area of the overlap, then add that fraction of the load density to the total (i.e. 
 the entire load polygon represents 4.1 MW, and we have 25% in our area of interest, so we add 4.1*0.25=1.025MW to
 the load density total for the recommendation
+
+For the math in the recommendations, here are the assumptions mapping from UtilityApi data to 
+load density for load polygons, and then from load density to generator units
+Set beginning energy value per Voltstack + (# of days * daily energy in per Voltstack) - 
+(number of days * daily total energy out equal to zero)
+eg. 0=121 kWh*x + (7 days*17.8kWh*x) - (107112 kWh/day*7 days)
 '''
 @app.route('/calculateRecommendation', methods=['POST'])
 def calculate_recommendations():
