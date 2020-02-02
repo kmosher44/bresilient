@@ -39,11 +39,10 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.623069, 37.019780],  # Array [lng, lat]
             "isLowIncome": False,  # Boolean
-            "loadIndex": 60,  # Integer, 0 - 100
+            "loadIndex": 80,  # Integer, 0 - 100
             "households": 2807,  # Integer,
             "loadDensity": "27 MW",  # String,
             "coordinates": [
-
                 [
                     [
                         -121.60226339184604,
@@ -72,11 +71,10 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.560769, 37.007519],  # Array [lng, lat]
             "isLowIncome": True,  # Boolean
-            "loadIndex": 24,  # Integer, 0 - 100
+            "loadIndex": 40,  # Integer, 0 - 100
             "households": 2807,  # Integer,
             "loadDensity": "6.5 MW",  # String,
             "coordinates": [
-
                 [
                     [
                         -121.56140798413122,
@@ -105,9 +103,42 @@ def fetch_polygons():
             "type": "load",  # load, fire, generate
             "markerLoc": [-121.580479, 37.009911],  # Array [lng, lat]
             "isLowIncome": True,  # Boolean
-            "loadIndex": 26,  # Integer, 0 - 100
+            "loadIndex": 60,  # Integer, 0 - 100
             "households": 2441,  # Integer,
             "loadDensity": "7.1 MW",  # String,
+            "coordinates": [
+
+                [
+                    [
+                        -121.55934804760764,
+                        36.98474118666458
+                    ],
+                    [
+                        -121.55024999462927,
+                        36.98432981841435
+                    ],
+                    [
+                        -121.53462880932638,
+                        37.00283918738357
+                    ],
+                    [
+                        -121.57428258740268,
+                        37.032718878774986
+                    ],
+                    [
+                        -121.55934804760764,
+                        36.98474118666458
+                    ]
+                ]
+            ]
+        },
+        {
+            "type": "load",  # load, fire, generate
+            "markerLoc": [-121.575173, 36.998412],  # Array [lng, lat]
+            "isLowIncome": False,  # Boolean
+            "loadIndex": 20,  # Integer, 0 - 100
+            "households": 1709,  # Integer,
+            "loadDensity": "4.1 MW",  # String,
             "coordinates": [
                 [
                     [
@@ -131,16 +162,6 @@ def fetch_polygons():
                         36.996258594525
                     ]
                 ]
-            ]
-        },
-        {
-            "type": "load",  # load, fire, generate
-            "markerLoc": [-121.575173, 36.998412],  # Array [lng, lat]
-            "isLowIncome": False,  # Boolean
-            "loadIndex": 20,  # Integer, 0 - 100
-            "households": 1709,  # Integer,
-            "loadDensity": "4.1 MW",  # String,
-            "coordinates": [
             ]
         }
     ]
