@@ -55,39 +55,38 @@ var locations = [
     var {pins} = await api.fetchPins();
     var meteredPoints = pins;
     M.addMarkers(meteredPoints);
-   
+
     // add hub icon
     var hubImg = 'images/icons/hub.png';
     M.addIcon(hubImg, startLocation, 'two', 1.25);
 
     // add polygons 
-    const { polygons } = await api.fetchPolygons();
-    
+    const {polygons} = await api.fetchPolygons();
+
     for (var poly of polygons) {
       M.addPoly(poly)
     }
 
-    //   var draw = new MapboxDraw({
-    //     displayControlsDefault: false,
-    //     controls: {
-    //       polygon: true,
-    //       trash: true
-    //     }
-    //   });
-    //
-    //   map.addControl(draw);
-    //
-    //   map.on('draw.create', updateArea);
-    //   map.on('draw.delete', updateArea);
-    //   map.on('draw.update', updateArea);
-    //
-    //   function updateArea(e) {
-    //     var data = draw.getAll();
-    //     var area = turf.area(data);
-    //     var features = data.features;
-    //
-    //     localStorage.polygons = JSON.stringify(features);
-    //   }
+    // add draw controls
+    var draw = new MapboxDraw({
+      displayControlsDefault: false,
+      controls: {
+        polygon: true,
+        trash: true
+      }
+    });
+
+    map.addControl(draw);
+
+    map.on('draw.create', updateArea);
+    map.on('draw.delete', updateArea);
+    map.on('draw.update', updateArea);
+
+    function updateArea(e) {
+      var data = draw.getAll();
+      var features = data.features;
+      localStorage.polygons = JSON.stringify(features);
+    }
 
   });
 
