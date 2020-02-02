@@ -30,7 +30,12 @@ location in the polygon) as well as a boolean indicator of income (lower income 
 vulnerable), as well as a visual shading indicator.  MVP has the polygons manually calculated from 
 UtiltyAPI data for Gilroy and returns those.  
 
-Power consumption density for a polygon was 
+Power consumption density for a polygon was manually calculated by estimating a household count from
+city population and dividing that by the relative area of the polygons with respect to the city area,
+then multiplying representative household power consumption by households count in the polygon.  We crosschecked 
+the data and found that for ~48000 people in Gilroy, we ended up with an estimated power density of 44.7 MW, 
+or ~1 kW per person 
+
 '''
 @app.route('/fetchPolygons', methods=['POST'])
 def fetch_polygons():
